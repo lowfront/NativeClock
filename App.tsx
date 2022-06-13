@@ -29,9 +29,10 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 
 import { format, getHours, getMinutes, getSeconds } from 'date-fns';
+import { SquircleView } from 'react-native-figma-squircle';
 
-const DEFAULT_CLOCK_RADIUS = Dimensions.get('window').width / 2 - 20;
-const DEFAULT_NUMBERS_RADIUS = DEFAULT_CLOCK_RADIUS - 35;
+const DEFAULT_CLOCK_RADIUS = Dimensions.get('window').width / 2 * .85;
+const DEFAULT_NUMBERS_RADIUS = DEFAULT_CLOCK_RADIUS * .7;
 const DEFAULT_CLOCK_SECONDS_HAND = DEFAULT_CLOCK_RADIUS - 40;
 const DEFAULT_CLOCK_MINUTES_HAND = DEFAULT_CLOCK_RADIUS - 50;
 const DEFAULT_CLOCK_HOURS_HAND = DEFAULT_CLOCK_RADIUS - 100;
@@ -79,16 +80,32 @@ const ClockFrame: FC<{ time: Date; radius?: number; }> = ({ time, radius = DEFAU
       justifyContent: 'center',
       alignItems: 'center',
     }}>
+    {/* 프레임 외부 */}
+    <SquircleView 
+      style={{
+        width: radius * 2,
+        height: radius * 2,
+        position: 'absolute',
+      }} 
+      squircleParams={{
+        cornerSmoothing: .7,
+        cornerRadius: radius * .4,
+        fillColor: 'skyblue',
+      }}
+    />
     {/* 프레임 */}
-    <View style={{
-      width: radius * 2,
-      height: radius * 2,
-      borderColor: '#333',
-      borderWidth: 14,
-      borderRadius: 9999,
-      position: 'absolute',
-      backgroundColor: 'white',
-    }} />
+    <SquircleView 
+      style={{
+        width: radius * 2 * .85,
+        height: radius * 2 * .85,
+        position: 'absolute',
+      }} 
+      squircleParams={{
+        cornerSmoothing: .7,
+        cornerRadius: radius * .4,
+        fillColor: 'white',
+      }}
+    />
     {/* 초침 */}
     <View style={{
       width: DEFAULT_CLOCK_SECONDS_HAND,
@@ -97,30 +114,32 @@ const ClockFrame: FC<{ time: Date; radius?: number; }> = ({ time, radius = DEFAU
       backgroundColor: 'red',
       transform: [
         { rotate: `${seconds * 6 - 90}deg` },
-        { translateX: DEFAULT_CLOCK_SECONDS_HAND / 2 },
+        { translateX: DEFAULT_CLOCK_SECONDS_HAND / 2 - 20 },
 
       ],
     }} />
     {/* 시침 */}
     <View style={{
       width: DEFAULT_CLOCK_HOURS_HAND,
-      height: 3,
+      height: 3.5,
       position: 'absolute',
       backgroundColor: '#333',
+      borderRadius: 10,
       transform: [
         { rotate: `${hours * 30 + minutes / 60 * 30 + seconds / 60 / 60 * 30 - 90}deg` },
-        { translateX: DEFAULT_CLOCK_HOURS_HAND / 2 },
+        { translateX: DEFAULT_CLOCK_HOURS_HAND / 2 - 15 },
       ],
     }} />
     {/* 분침 */}
     <View style={{
       width: DEFAULT_CLOCK_MINUTES_HAND,
-      height: 3,
+      height: 3.5,
       position: 'absolute',
       backgroundColor: '#333',
+      borderRadius: 10,
       transform: [
         { rotate: `${minutes * 6 + seconds / 60 * 6 - 90}deg` },
-        { translateX: DEFAULT_CLOCK_MINUTES_HAND / 2},
+        { translateX: DEFAULT_CLOCK_MINUTES_HAND / 2 - 15},
         
       ],
     }} />
