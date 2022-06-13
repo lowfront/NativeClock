@@ -93,10 +93,11 @@ const ClockFrame: FC<{ time: Date; radius?: number; }> = ({ time, radius = DEFAU
     <View style={{
       width: DEFAULT_CLOCK_SECONDS_HAND,
       height: 3,
+      position: 'absolute',
       backgroundColor: 'red',
       transform: [
         { rotate: `${seconds * 6 - 90}deg` },
-        { translateX: DEFAULT_CLOCK_SECONDS_HAND / 2},
+        { translateX: DEFAULT_CLOCK_SECONDS_HAND / 2 },
 
       ],
     }} />
@@ -104,22 +105,23 @@ const ClockFrame: FC<{ time: Date; radius?: number; }> = ({ time, radius = DEFAU
     <View style={{
       width: DEFAULT_CLOCK_HOURS_HAND,
       height: 3,
+      position: 'absolute',
       backgroundColor: '#333',
       transform: [
         { rotate: `${hours * 30 + minutes / 60 * 30 + seconds / 60 / 60 * 30 - 90}deg` },
-        { translateX: DEFAULT_CLOCK_HOURS_HAND / 2},
-        { translateY: - 3 / 2},
+        { translateX: DEFAULT_CLOCK_HOURS_HAND / 2 },
       ],
     }} />
     {/* 분침 */}
     <View style={{
       width: DEFAULT_CLOCK_MINUTES_HAND,
       height: 3,
+      position: 'absolute',
       backgroundColor: '#333',
       transform: [
         { rotate: `${minutes * 6 + seconds / 60 * 6 - 90}deg` },
         { translateX: DEFAULT_CLOCK_MINUTES_HAND / 2},
-        { translateY: - 3 / 2},
+        
       ],
     }} />
     {/* 고정판 */}
